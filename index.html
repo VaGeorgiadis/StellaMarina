@@ -128,30 +128,45 @@
           </label>
           <input 
             type="text" 
-            value="ΤΜΗΜΑ ΚΑΤΑΠΟΛΕΜΗΣΗΣ ΕΜΠΟΡΙΑΣ ΑΝΘΡΩΠΩΝ" 
+            value="ΑΣΤΥΝΟΜΙΚΟ ΜΥΘΙΣΤΟΡΗΜΑ STELLA MARINA" 
             readonly 
             class="w-full bg-slate-950/70 border border-slate-800 rounded-lg px-3 py-2.5 text-xs text-slate-400 cursor-not-allowed select-none font-detective"
           >
         </div>
 
-        <!-- Κουμπί Λήψης / Κοινοποίησης -->
+        <!-- Κουμπί Κοινοποίησης στα Social Media -->
         <div class="pt-2">
           <button 
             type="button" 
-            onclick="downloadBadge()"
-            class="w-full bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-slate-950 font-black py-3.5 px-4 rounded-xl shadow-lg shadow-amber-900/30 text-xs sm:text-sm tracking-wider uppercase transition-all flex items-center justify-center gap-2"
+            id="shareBtn"
+            onclick="shareBadge()"
+            class="w-full bg-gradient-to-r from-red-600 via-amber-600 to-amber-500 hover:from-red-500 hover:to-amber-400 active:scale-[0.98] text-white font-black py-4 px-4 rounded-xl shadow-lg shadow-red-950/50 text-xs sm:text-sm tracking-wider uppercase transition-all flex items-center justify-center gap-2"
           >
-            <svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
             </svg>
-            Αποθήκευση Διαπίστευσης (PNG)
+            <span id="btnText">Κοινοποιηση στα Social Media</span>
           </button>
+        </div>
+
+        <!-- Ενημερωτικό μήνυμα κατάστασης / ειδοποίησης -->
+        <div id="statusToast" class="hidden bg-emerald-950/80 border border-emerald-600/60 rounded-xl p-2.5 text-center text-xs text-emerald-200 font-medium"></div>
+
+        <!-- Fallback Social Links για browsers χωρίς WebShare -->
+        <div id="fallbackShareOptions" class="hidden pt-1 space-y-2">
+          <p class="text-[11px] text-amber-300 font-detective text-center">Επιλέξτε εφαρμογή για κοινοποίηση:</p>
+          <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold">
+            <button type="button" onclick="shareToFacebook()" class="bg-blue-600 hover:bg-blue-500 py-2 rounded-lg text-white">Facebook</button>
+            <button type="button" onclick="shareToTwitter()" class="bg-sky-500 hover:bg-sky-400 py-2 rounded-lg text-white">X / Twitter</button>
+            <button type="button" onclick="shareToWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 py-2 rounded-lg text-white">WhatsApp</button>
+          </div>
         </div>
 
         <div class="bg-amber-950/30 border border-amber-900/40 rounded-xl p-3 text-center">
           <p class="text-xs text-amber-200/80 leading-relaxed font-detective">
-            📌 Αποθηκεύστε την ταυτότητα και μοιραστείτε τη στα social media με 
-            <span class="text-red-400 font-bold">#StellaMarina</span> & 
+            📲 Σε κινητά τηλέφωνα (iOS / Android), το κουμπί ανοίγει απευθείας το μενού κοινοποίησης σε 
+            <span class="text-red-400 font-bold">Instagram Story / Post, Viber, WhatsApp, Messenger</span> με τα hashtags 
+            <span class="text-amber-300 font-bold">#StellaMarina</span> & 
             <span class="text-amber-300 font-bold">#EkdoseisDere</span>.
           </p>
         </div>
@@ -160,9 +175,8 @@
 
     <!-- Προεπισκόπηση Διαπίστευσης (Right Panel / Badge) -->
     <section class="lg:col-span-7 flex flex-col items-center">
-      <div class="w-full flex justify-between items-center px-2 mb-2 text-xs text-slate-400">
-        <span>ΠΡΟΕΠΙΣΚΟΠΗΣΗ ΤΑΥΤΟΤΗΤΑΣ</span>
-        <span class="text-amber-500 font-detective">ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ</span>
+      <div class="w-full flex justify-center items-center px-2 mb-2 text-xs text-slate-400">
+        <span class="tracking-widest font-bold">ΠΡΟΕΠΙΣΚΟΠΗΣΗ ΤΑΥΤΟΤΗΤΑΣ</span>
       </div>
 
       <!-- Οπτική Κάρτα Διαπίστευσης -->
@@ -178,8 +192,7 @@
         <!-- Header Κάρτας -->
         <div class="border-b-2 border-amber-900/40 pb-3 mb-4 flex justify-between items-center text-amber-100">
           <div>
-            <p class="text-[9px] uppercase tracking-widest text-amber-400/90 font-bold">Ελληνικη Δημοκρατια • Αρχηγειο ΕΛ.ΑΣ.</p>
-            <p class="text-xs font-bold text-red-400 uppercase tracking-wider font-detective">Τμημα Καταπολεμησης Εμποριας Ανθρωπων</p>
+            <p class="text-xs font-bold text-red-400 uppercase tracking-wider font-detective">ΑΣΤΥΝΟΜΙΚΟ ΜΥΘΙΣΤΟΡΗΜΑ STELLA MARINA</p>
           </div>
           <span class="bg-red-900/80 text-red-200 text-[10px] font-mono px-2 py-0.5 rounded border border-red-700">ΑΠΟΡΡΗΤΟ</span>
         </div>
@@ -292,152 +305,218 @@
       document.getElementById('cardRole').innerText = roleInput;
     }
 
-    // Δημιουργία και λήψη της κάρτας ως εικόνα μέσω HTML5 Canvas
-    function downloadBadge() {
-      const canvas = document.getElementById('exportCanvas');
-      const ctx = canvas.getContext('2d');
+    function showStatus(message, isError = false) {
+      const toast = document.getElementById('statusToast');
+      toast.innerText = message;
+      toast.className = isError 
+        ? "bg-red-950/80 border border-red-600/60 rounded-xl p-2.5 text-center text-xs text-red-200 font-medium block" 
+        : "bg-emerald-950/80 border border-emerald-600/60 rounded-xl p-2.5 text-center text-xs text-emerald-200 font-medium block";
+      setTimeout(() => {
+        toast.className = "hidden";
+      }, 4000);
+    }
 
-      // Διαστάσεις κάρτας υψηλής ανάλυσης
-      canvas.width = 900;
-      canvas.height = 560;
+    // Δημιουργία της εικόνας στο Canvas και κοινοποίηση μέσω Web Share API
+    async function shareBadge() {
+      const btn = document.getElementById('shareBtn');
+      const btnText = document.getElementById('btnText');
+      btn.disabled = true;
+      btnText.innerText = "Προετοιμασία εικόνας...";
 
-      const name = document.getElementById('cardName').innerText;
-      const role = document.getElementById('cardRole').innerText;
-      const regNo = document.getElementById('cardRegNumber').innerText;
+      try {
+        const canvas = document.getElementById('exportCanvas');
+        const ctx = canvas.getContext('2d');
 
-      // 1. Background
-      const bgGrad = ctx.createRadialGradient(450, 200, 50, 450, 280, 500);
-      bgGrad.addColorStop(0, '#1c1917');
-      bgGrad.addColorStop(1, '#0a0a0a');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+        canvas.width = 900;
+        canvas.height = 560;
 
-      // Εξωτερικό Περιθώριο
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = '#b45309';
-      ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
-      ctx.lineWidth = 1.5;
-      ctx.strokeStyle = '#78350f';
-      ctx.strokeRect(22, 22, canvas.width - 44, canvas.height - 44);
+        const name = document.getElementById('cardName').innerText;
+        const role = document.getElementById('cardRole').innerText;
+        const regNo = document.getElementById('cardRegNumber').innerText;
 
-      // 2. Header
-      ctx.fillStyle = '#f59e0b';
-      ctx.font = 'bold 16px Courier Prime, monospace';
-      ctx.fillText('ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ • ΑΡΧΗΓΕΙΟ ΕΛ.ΑΣ.', 50, 60);
+        // 1. Background
+        const bgGrad = ctx.createRadialGradient(450, 200, 50, 450, 280, 500);
+        bgGrad.addColorStop(0, '#1c1917');
+        bgGrad.addColorStop(1, '#0a0a0a');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#f87171';
-      ctx.font = 'bold 18px Courier Prime, monospace';
-      ctx.fillText('ΤΜΗΜΑ ΚΑΤΑΠΟΛΕΜΗΣΗΣ ΕΜΠΟΡΙΑΣ ΑΝΘΡΩΠΩΝ', 50, 90);
+        // Εξωτερικό Περιθώριο
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#b45309';
+        ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#78350f';
+        ctx.strokeRect(22, 22, canvas.width - 44, canvas.height - 44);
 
-      // Κουτί "ΑΠΟΡΡΗΤΟ"
-      ctx.fillStyle = '#7f1d1d';
-      ctx.fillRect(720, 45, 120, 32);
-      ctx.strokeStyle = '#ef4444';
-      ctx.strokeRect(720, 45, 120, 32);
-      ctx.fillStyle = '#fee2e2';
-      ctx.font = 'bold 15px monospace';
-      ctx.fillText('ΑΠΟΡΡΗΤΟ', 742, 67);
+        // 2. Header
+        ctx.fillStyle = '#f87171';
+        ctx.font = 'bold 20px Courier Prime, monospace';
+        ctx.fillText('ΑΣΤΥΝΟΜΙΚΟ ΜΥΘΙΣΤΟΡΗΜΑ STELLA MARINA', 50, 75);
 
-      // Διαχωριστική γραμμή header
-      ctx.strokeStyle = 'rgba(180, 83, 9, 0.5)';
-      ctx.beginPath();
-      ctx.moveTo(50, 110);
-      ctx.lineTo(850, 110);
-      ctx.stroke();
+        // Κουτί "ΑΠΟΡΡΗΤΟ"
+        ctx.fillStyle = '#7f1d1d';
+        ctx.fillRect(720, 50, 120, 32);
+        ctx.strokeStyle = '#ef4444';
+        ctx.strokeRect(720, 50, 120, 32);
+        ctx.fillStyle = '#fee2e2';
+        ctx.font = 'bold 15px monospace';
+        ctx.fillText('ΑΠΟΡΡΗΤΟ', 742, 72);
 
-      // 3. Στοιχεία Ερευνητή
-      ctx.fillStyle = '#f59e0b';
-      ctx.font = 'bold 14px Courier Prime, monospace';
-      ctx.fillText('ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΕΡΕΥΝΗΤΗ:', 340, 155);
+        // Διαχωριστική γραμμή header
+        ctx.strokeStyle = 'rgba(180, 83, 9, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(50, 110);
+        ctx.lineTo(850, 110);
+        ctx.stroke();
 
-      ctx.fillStyle = '#fef3c7';
-      ctx.font = 'bold 28px Cinzel, serif';
-      ctx.fillText(name, 340, 195);
+        // 3. Στοιχεία Ερευνητή
+        ctx.fillStyle = '#f59e0b';
+        ctx.font = 'bold 14px Courier Prime, monospace';
+        ctx.fillText('ΟΝΟΜΑΤΕΠΩΝΥΜΟ ΕΡΕΥΝΗΤΗ:', 340, 155);
 
-      ctx.fillStyle = '#d97706';
-      ctx.font = 'bold 14px Courier Prime, monospace';
-      ctx.fillText('ΚΛΙΜΑΚΙΟ:', 340, 245);
+        ctx.fillStyle = '#fef3c7';
+        ctx.font = 'bold 28px Cinzel, serif';
+        ctx.fillText(name, 340, 195);
 
-      ctx.fillStyle = '#e2e8f0';
-      ctx.font = 'bold 20px Courier Prime, monospace';
-      ctx.fillText(role, 340, 275);
+        ctx.fillStyle = '#d97706';
+        ctx.font = 'bold 14px Courier Prime, monospace';
+        ctx.fillText('ΚΛΙΜΑΚΙΟ:', 340, 245);
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '14px Courier Prime, monospace';
-      ctx.fillText('ΑΡ. ΜΗΤΡΩΟΥ:', 340, 325);
-      ctx.fillStyle = '#f87171';
-      ctx.font = 'bold 18px monospace';
-      ctx.fillText(regNo, 340, 350);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = 'bold 20px Courier Prime, monospace';
+        ctx.fillText(role, 340, 275);
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '14px Courier Prime, monospace';
-      ctx.fillText('ΥΠΟΘΕΣΗ:', 540, 325);
-      ctx.fillStyle = '#fbbf24';
-      ctx.font = 'bold 18px Cinzel, serif';
-      ctx.fillText('STELLA MARINA', 540, 350);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '14px Courier Prime, monospace';
+        ctx.fillText('ΑΡ. ΜΗΤΡΩΟΥ:', 340, 325);
+        ctx.fillStyle = '#f87171';
+        ctx.font = 'bold 18px monospace';
+        ctx.fillText(regNo, 340, 350);
 
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '14px Courier Prime, monospace';
-      ctx.fillText('ΣΥΓΓΡΑΦΕΑΣ: ΒΑΣΙΛΗΣ ΓΕΩΡΓΙΑΔΗΣ', 340, 400);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '14px Courier Prime, monospace';
+        ctx.fillText('ΥΠΟΘΕΣΗ:', 540, 325);
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 18px Cinzel, serif';
+        ctx.fillText('STELLA MARINA', 540, 350);
 
-      // 4. Σφραγίδα
-      ctx.save();
-      ctx.translate(340, 475);
-      ctx.rotate(-0.06);
-      ctx.strokeStyle = '#b91c1c';
-      ctx.lineWidth = 3;
-      ctx.strokeRect(0, 0, 250, 40);
-      ctx.fillStyle = '#dc2626';
-      ctx.font = 'bold 16px Courier Prime, monospace';
-      ctx.fillText('ΕΛ.ΑΣ. / ΕΓΚΕΚΡΙΜΕΝΟ', 22, 26);
-      ctx.restore();
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '14px Courier Prime, monospace';
+        ctx.fillText('ΣΥΓΓΡΑΦΕΑΣ: ΒΑΣΙΛΗΣ ΓΕΩΡΓΙΑΔΗΣ', 340, 400);
 
-      // 5. Σχεδίαση Εικόνων (Cover & Logo)
-      const coverImg = document.getElementById('previewCover');
-      const logoImg = document.getElementById('dereLogo');
+        // 4. Σφραγίδα
+        ctx.save();
+        ctx.translate(340, 475);
+        ctx.rotate(-0.06);
+        ctx.strokeStyle = '#b91c1c';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(0, 0, 250, 40);
+        ctx.fillStyle = '#dc2626';
+        ctx.font = 'bold 16px Courier Prime, monospace';
+        ctx.fillText('ΕΛ.ΑΣ. / ΕΓΚΕΚΡΙΜΕΝΟ', 22, 26);
+        ctx.restore();
 
-      function drawImagesAndSave() {
+        // 5. Σχεδίαση Εικόνων
+        const coverImg = document.getElementById('previewCover');
+        const logoImg = document.getElementById('dereLogo');
+
         try {
-          // Σχεδίαση εξωφύλλου
           ctx.drawImage(coverImg, 50, 135, 250, 375);
           ctx.strokeStyle = '#d97706';
           ctx.lineWidth = 2;
           ctx.strokeRect(50, 135, 250, 375);
         } catch (e) {
-          // Placeholder αν η εικόνα δεν είναι προσβάσιμη
           ctx.fillStyle = '#292524';
           ctx.fillRect(50, 135, 250, 375);
-          ctx.fillStyle = '#d97706';
-          ctx.fillText('Cover Image', 120, 300);
         }
 
         try {
-          // Background για το λογότυπο
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(720, 420, 120, 85);
           ctx.drawImage(logoImg, 735, 425, 90, 75);
         } catch (e) {
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(720, 420, 120, 85);
-          ctx.fillStyle = '#000000';
-          ctx.font = 'bold 18px Cinzel, serif';
-          ctx.fillText('ΔΕΡΕ', 750, 460);
-          ctx.font = '10px Courier Prime, monospace';
-          ctx.fillText('ΕΚΔΟΣΕΙΣ', 745, 485);
         }
 
-        // Trigger Download
-        const link = document.createElement('a');
-        link.download = `Diapistefsi_${name.replace(/\s+/g, '_')}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      }
+        // 6. Δημιουργία Blob και Κλήση Web Share API
+        canvas.toBlob(async (blob) => {
+          if (!blob) {
+            showStatus("Αποτυχία δημιουργίας εικόνας.", true);
+            resetButton();
+            return;
+          }
 
-      if (coverImg.complete && logoImg.complete) {
-        drawImagesAndSave();
-      } else {
-        setTimeout(drawImagesAndSave, 300);
+          const file = new File([blob], `Diapistefsi_${name.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
+          const shareData = {
+            title: 'Υπόθεση: Stella Marina — Διαπίστευση Ερευνητή',
+            text: `Επίσημη Διαπίστευση Ερευνητή για την υπόθεση Stella Marina του Βασίλη Γεωργιάδη (#StellaMarina #EkdoseisDere)`,
+            url: window.location.href,
+            files: [file]
+          };
+
+          // Έλεγχος αν ο περιηγητής υποστηρίζει κοινοποίηση αρχείων (κυρίως κινητά)
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share(shareData);
+              showStatus("Η κοινοποίηση ολοκληρώθηκε επιτυχώς!");
+            } catch (err) {
+              if (err.name !== 'AbortError') {
+                showStatus("Η κοινοποίηση ακυρώθηκε ή δεν υποστηρίζεται.", true);
+              }
+            }
+          } else if (navigator.share) {
+            // Υποστηρίζει Web Share μόνο για κείμενο/URL
+            try {
+              await navigator.share({
+                title: shareData.title,
+                text: shareData.text,
+                url: window.location.href
+              });
+              showStatus("Κοινοποιήθηκε ο σύνδεσμος της διαπίστευσης!");
+            } catch (err) {
+              if (err.name !== 'AbortError') {
+                document.getElementById('fallbackShareOptions').classList.remove('hidden');
+              }
+            }
+          } else {
+            // Desktop fallback χωρίς Web Share API
+            document.getElementById('fallbackShareOptions').classList.remove('hidden');
+            showStatus("Το σύστημά σας δεν υποστηρίζει άμεση κοινοποίηση εικόνας. Επιλέξτε κοινωνικό δίκτυο παρακάτω.");
+          }
+
+          resetButton();
+        }, 'image/png');
+
+      } catch (err) {
+        showStatus("Σφάλμα κατά την επεξεργασία της εικόνας.", true);
+        resetButton();
       }
+    }
+
+    function resetButton() {
+      const btn = document.getElementById('shareBtn');
+      const btnText = document.getElementById('btnText');
+      btn.disabled = false;
+      btnText.innerText = "Κοινοποιηση στα Social Media";
+    }
+
+    // Direct Social Links (Fallbacks)
+    function shareToFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+
+    function shareToTwitter() {
+      const text = encodeURIComponent("Επίσημη Διαπίστευση Ερευνητή - Υπόθεση Stella Marina (Βασίλης Γεωργιάδης) #StellaMarina #EkdoseisDere");
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+    }
+
+    function shareToWhatsApp() {
+      const text = encodeURIComponent(`Επίσημη Διαπίστευση Ερευνητή - Υπόθεση Stella Marina (Βασίλης Γεωργιάδης) #StellaMarina #EkdoseisDere: ${window.location.href}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
   </script>
 </body>
